@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 
@@ -10,7 +11,7 @@ import (
 	"github.com/BurntSushi/xgb/xproto"
 )
 
-const output = "DisplayPort-0"
+var output = flag.String("output", "DisplayPort-0", "Reset the CRTC attached to this output")
 
 type gamma struct {
 	c     *xgb.Conn
@@ -58,11 +59,11 @@ again:
 		if r.Status == randr.SetConfigInvalidConfigTime {
 			goto again
 		}
-		if string(r.Name[:r.NameLen]) == output {
+		if string(r.Name[:r.NameLen]) == *output {
 			return r.Crtc, nil
 		}
 	}
-	return 0, fmt.Errorf("no output named '%s'", output)
+	return 0, fmt.Errorf("no output named '%s'", *output)
 }
 
 func getGamma(c *xgb.Conn, root xproto.Window) (*gamma, error) {
@@ -84,6 +85,8 @@ func getGamma(c *xgb.Conn, root xproto.Window) (*gamma, error) {
 }
 
 func main() {
+	flag.Parse()
+
 	c, err := xgb.NewConn()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
