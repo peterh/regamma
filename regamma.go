@@ -1,3 +1,9 @@
+// regamma watches your screensaver state, and resets the gamma of the CRTC
+// attached to a specified Output whenever the X server wakes up the screen from DPMS sleep.
+//
+// This command is intended to be used as a workaround for video cards and/or monitors that
+// forget their gamma state during DPMS sleep. (One such example is a Dell P2210T attached to an
+// AMD FirePro V3900 over DisplayPort using the stock drivers in Ubuntu 14.10).
 package main
 
 import (
