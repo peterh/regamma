@@ -21,4 +21,4 @@ If you change the gamma profile during your session, regamma will not notice and
 
 ### License
 
-regamma is licence under the X11 licence. See the file `COPYING`.
+regamma is licenced under the X11 licence. See the file `COPYING`.
